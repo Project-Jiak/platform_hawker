@@ -3,7 +3,7 @@ import React from 'react'
 
 const AddMenuItem = (props) => {
   const {item, setItem, addItem} = props
-  const {name, price, desc} = item
+  const {name, price, description} = item
   
 
   return (
@@ -38,8 +38,8 @@ const AddMenuItem = (props) => {
           <input 
             type="text" 
             placeholder='Add description'
-            value={desc}
-            onChange={(e) => setItem({ ...item, desc: e.target.value })}/>
+            value={description}
+            onChange={(e) => setItem({ ...item, description: e.target.value })}/>
         </div>
       </form>
       <button className="btn btn-primary btn-sm mr-2 px-4" onClick={() => addItem()}>Save item</button>
