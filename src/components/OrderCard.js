@@ -41,7 +41,7 @@ const OrderCard = (props) => {
             width: "6em",
             backgroundRepeat: "no-repeat",
             backgroundSize: "6em 6em",
-            backgroundImage: `url(${props.image}), url(https://martialartsplusinc.com/wp-content/uploads/2017/04/default-image-620x600.jpg)`
+            backgroundImage: `url(${props.image})`
           }}
         />
       </div>

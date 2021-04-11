@@ -61,6 +61,30 @@ const Orders = (props) => {
     return null
   }
 
+  const processOrder = (orders, status) => {
+    if (orders == null || orders.length == 0) {
+      return
+    }
+    axios({
+      method: 'patch',
+      url: 'https://jiak-api.vitaverify.me/api/v1/stall/order',
+      data: {
+        
+        "orderId": orders[0].orderId,
+        "status": status
+      
+      },
+      withCredentials: true
+    })
+      .then(function (res) {
+        console.log(res)
+        setOrders(res.data.bundledOrders)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
+
   return (
     <div>
       <div className="headers">Orders</div>
@@ -75,9 +99,19 @@ const Orders = (props) => {
         {modalDescription.orders.map((ele) => {
           const item = getMenuItem(ele.menuId)
           if (item == null) return <></>
-          return <OrderCard title={item.name}/>
+          return <OrderCard 
+            image={item.image}
+            title={item.name}
+            badge={ele.quantity}
+            // b1={()=>{console.log("Complete")}}
+            // b1Name="Complete"
+            // b2={()=>{console.log("Rejected")}}
+            // b2Name="Reject"
+          />
         })}
-        <button onClick={closeModal}>close</button>
+        <button onClick={() => {processOrder(modalDescription.orders, "Done")}}>Complete</button>
+        <button onClick={() => {processOrder(modalDescription.orders, "Rejected")}}>Reject</button>
+        <button onClick={closeModal}>Close</button>
       </Modal>
       {
         orders && orders.map((ele) => {
@@ -86,13 +120,16 @@ const Orders = (props) => {
           return (
 
             <OrderCard
-              onClick={() => {
+              title={ele[0].customerId}
+              image="http://cdn.onlinewebfonts.com/svg/img_415179.png"
+              badge={ele[0].status}
+              b1={() => {
                 openModal()
                 setModalDescription({ customer: ele[0].customerId, 
                                       orders: ele})
               }}
-              title={ele[0].customerId}
-
+              b1Name="View"
+              
             />
           )
         })
