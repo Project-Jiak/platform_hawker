@@ -38,7 +38,7 @@ const MenuCard = (props) => {
           }}
         />
       </div>
-      <div className="card-block text-start p-3 ">
+      <div className="card-block text-start p-3">
         <div className="card-title elements-hawker-centres-list" style={{ color: "#000000", fontWeight: 600, fontSize: '20px', textAlign: 'left'}}> {props.title}</div>
         <div className={`card-text ${props.l3Class ? props.l3Class : ""}`}>{props.line3}</div> 
         <div className={`card-text ${props.l2Class ? props.l2Class : ""}`}>{props.line2}</div>

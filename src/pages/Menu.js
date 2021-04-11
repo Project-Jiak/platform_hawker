@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import MenuCard from "../components/MenuCard"
+import AddMenuItem from "../components/AddMenuItem"
 
 
 const Menu = (props) => {
@@ -23,7 +24,7 @@ const Menu = (props) => {
 
   return (
     <div>
-      <div className="headers">Stall items</div>
+      <div className="headers"><h3>Menu Items</h3></div>
       {
         menu && menu.map((ele) => {
           console.log(ele)
@@ -38,7 +39,7 @@ const Menu = (props) => {
           )
         })
       }
-      <button>Add new item</button>
+      <AddMenuItem />
     </div>
   )
 }

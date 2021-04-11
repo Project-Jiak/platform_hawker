@@ -10,10 +10,7 @@ const NavBar = () => {
            alt="" width="30" height="24" className="d-inline-block align-text-top" />
           Jiak.png
         </Link>
-        <div>
-          <Link to="/cart" className="p-3">
-            <img src="https://static.thenounproject.com/png/5641-200.png" alt="" width="30" height="24" className="d-inline-block align-text-top" />
-          </Link>
+        <div> 
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>

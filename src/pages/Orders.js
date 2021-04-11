@@ -2,9 +2,30 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import OrderCard from '../components/OrderCard'
 import { findInList, isFalse } from '../common/functions'
+import Modal from 'react-modal';
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    maxHeight: '90%',
+    maxWidth: '90%'
+  }
+};
+
 
 const Orders = (props) => {
   const [orders, setOrders] = useState([])
+  const [menu, setMenu] = useState([])
+  const [modalDescription, setModalDescription] = useState({ customer: null, orders: [], total: 0 })
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const openModal = () => { setIsOpen(true); }
+  const afterOpenModal = () => { }
+  const closeModal = () => { setIsOpen(false); }
 
   useEffect(() => {
     axios({
@@ -14,14 +35,12 @@ const Orders = (props) => {
     })
       .then(function (res) {
         console.log(res)
-        setOrders(res.data.bundledorders)
+        setOrders(res.data.bundledOrders)
       })
       .catch(function (error) {
         console.log(error)
       })
-  }, [])
-
-  const menu = () => {
+    
     axios({
       method: 'get',
       url: 'https://jiak-api.vitaverify.me/api/v1/stall/menu',
@@ -29,42 +48,51 @@ const Orders = (props) => {
     })
       .then(function (res) {
         console.log(res)
-        return res.data
+        setMenu(res.data)
       })
       .catch(function (error) {
         console.log(error)
-        return []
       })
-  }
-
+  }, [])
 
   const getMenuItem = (id) => {
     let menuItem = findInList(menu, "_id", id)
     if (!isFalse(menuItem)) return menu[menuItem]
+    return null
   }
 
   return (
     <div>
       <div className="headers">Orders</div>
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel=""
+      >
+        <h2>{modalDescription.customer}</h2>
+        {modalDescription.orders.map((ele) => {
+          const item = getMenuItem(ele.menuId)
+          if (item == null) return <></>
+          return <OrderCard title={item.name}/>
+        })}
+        <button onClick={closeModal}>close</button>
+      </Modal>
       {
         orders && orders.map((ele) => {
-          console.log("Next order")
-          let menuItem = getMenuItem(ele.menuid)
-          if (menuItem == null) return <></>
+          let menuItem = getMenuItem(ele.menuId)
+          if (ele.length === 0) return <></>
           return (
-            <OrderCard 
-              image={menuItem.image}
-              title={menuItem.name}
-              badge={ele.quantity}
-              line1={`$${ele.quantity*menuItem.price}`}
-              b1={() => {
-                console.log("Clicked complete")
+
+            <OrderCard
+              onClick={() => {
+                openModal()
+                setModalDescription({ customer: ele[0].customerId, 
+                                      orders: ele})
               }}
-              b1Name="Complete"
-              b2={() => {
-                console.log("Clicked reject")
-              }}
-              b2Name="Reject"
+              title={ele[0].customerId}
+
             />
           )
         })
