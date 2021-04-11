@@ -32,7 +32,7 @@ const cardCss = {
 // }
 const OrderCard = (props) => {
   return (
-    <div className={`card flex-row flex-wrap m-3 ${props.classname}`}>
+    <div onClick={props.onClick} className={`card flex-row flex-wrap m-3 ${props.classname}`}>
       <div className="card-header border-0">
         <img
           alt=""
@@ -77,6 +77,7 @@ const OrderCard = (props) => {
             </button>
           )
         }
+        
       </div>
       <div className="w-100"></div>
       {/* <div className="card-footer w-100 text-muted">FOOTER</div> */}
