@@ -21,7 +21,7 @@ const customStyles = {
 const Orders = (props) => {
   const [orders, setOrders] = useState([]) // array of array of orders
   const [menu, setMenu] = useState([]) // all menu items for this stall
-  const [orderType, setOrderType] = useState("") // "Order made", "Done", "Rejected"
+  const [orderType, setOrderType] = useState("Order made") // "Order made", "Done", "Rejected"
   const [reload, setReload] = useState(0)
 
   const [modalDescription, setModalDescription] = useState({ customer: null, orders: [] }) // MODAL ITEM
