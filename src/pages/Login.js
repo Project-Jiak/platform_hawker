@@ -19,6 +19,7 @@ const Login = (props) => {
     })
       .then(function (res) {
         console.log(res);
+        window.location.pathname = "/orders";
       })
       .catch(function (error) {
         console.log(error);

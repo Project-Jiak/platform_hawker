@@ -23,9 +23,6 @@ const NavBar = () => {
                 <Link to="/menu"><a className="nav-link active" aria-current="page" href="#">Menu</a></Link>
               </li>
               <li className="nav-item">
-                <Link to="/stall details"><a className="nav-link" href="#">Stall Details</a></Link>
-              </li>
-              <li className="nav-item">
                 <Link to="/orders"><a className="nav-link" href="#">Orders</a></Link>
               </li>
             </ul>

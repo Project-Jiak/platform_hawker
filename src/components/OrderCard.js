@@ -3,8 +3,10 @@ import React from 'react'
 /**
  * 
  * @param {string} image
+ * @param {string} imageClass optional
  * @param {string} title
  * @param {string} badge
+ * @param {string} badgeClass
  * @param {string} classname optional
  * @param {string} b1 optional
  * @param {string} b2 optional
@@ -43,13 +45,14 @@ const OrderCard = (props) => {
             backgroundSize: "6em 6em",
             backgroundImage: `url(${props.image})`
           }}
+          className={props.imageClass}
         />
       </div>
       <div className="card-block text-start text-truncate p-3">
         <div className="card-title em-12">
           {props.title}
           {
-            props.badge ? <span class="badge bg-secondary mx-2">{props.badge}</span> : <></>
+            props.badge ? <span class={`badge mx-2 ${props.badgeClass}`}>{props.badge}</span> : <></>
           }
         </div>
         <div className={`card-text ${props.l1Class ? props.l1Class : ""}`}>{props.line1}</div>
